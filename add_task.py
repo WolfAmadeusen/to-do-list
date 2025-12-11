@@ -1,7 +1,6 @@
 import json
 
 def add_new_task(title,  status):
-    print(f'\n Новая таска добавленa \n title:{title}, status:{status}')
     with open("task.json", "r", encoding="utf-8") as file:
         tasks =  json.load(file)
     new_id = tasks[-1]["id"] + 1 if tasks else 1

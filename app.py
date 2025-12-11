@@ -1,48 +1,46 @@
-from read_file_txt import read_tasks
+from read_file_txt import list_tasks
 from add_task import add_new_task
-
+from update import update_file
 
 class Start_todo_list:
-    repeat    = True
     tasks = []
 
     def __init__(self):
-        self.repeat    = None
-        self.tasks = read_tasks()
-
-        print("Добро пожаловать в To-do list!")
-        print("Вам доступно одно из дейсвий: \n")
-
-        print("(1): Показать все таски")
-        print("(2): Добавить задачу")
-        print("(3): Удалить одну таску")
-
-        while True:
-            input_choice = int(input("Введите цифру: "))
-
-            match input_choice:
-                case 1:
-                    self.view_task()
-                    break
-                case 2:
-                    self.add_task()
-                    break
-                case 3:
-                    self.delete_task()
-                    break
-                case _:
-                    print("Такого нету")
+        self.tasks = list_tasks()
+        self.view_task()
 
     # Показ задач
     def view_task(self):
         print("\n--- Ваш Todo List --- \n")
         for task in self.tasks:
             print(f"{task['id']} | {task['title']} | {task['status']} ")
-        print("\n --------------------- \n")
+        print("--------------------- \n")
+        
+        print("Добавить задачу(1) \n Удалить задачу(2) \n обновить статус задачи(3)")
+        while True:
+            input_choice = int(input("Список действий:"))
+            match input_choice:
+                case 1:
+                    self.add_task()
+                    break
+                case 2:
+                    id = int(input("Какую задачу вы хотите удалить?(id): "))
+                    self.delete_task(id)
+                    break
+                case 3:
+                    self.update_status_task()
+                    break
+                case _:
+                    print("Такого нету")
 
     # Удаление задач
-    def delete_task(self):
-        print("Удаление задач")
+    def delete_task(self, id):
+        tasks = [task for task in self.tasks if task["id"] != id]
+        update_file(tasks)
+        print("Успешно удалено")
+
+    def update_status_task(self):
+        print("update status task")
 
     def add_task(self):
         print("--- Добавление новой задачи --- \n")
