@@ -2,7 +2,7 @@
     {
         "id": 1,
         "title": "Что такое Lorem Ipsum? ",
-        "status": false
+        "status": true
     },
     {
         "id": 2,
@@ -23,5 +23,10 @@
         "id": 5,
         "title": "Game turbo",
         "status": true
+    },
+    {
+        "id": 6,
+        "title": "Заголовок это да",
+        "status": false
     }
 ]

@@ -16,9 +16,9 @@ class Start_todo_list:
             print(f"{task['id']} | {task['title']} | {task['status']} ")
         print("--------------------- \n")
         
-        print("Добавить задачу(1) \n Удалить задачу(2) \n обновить статус задачи(3)")
+        print("Добавить задачу(1) \nУдалить задачу(2) \nОбновить статус задачи(3)")
         while True:
-            input_choice = int(input("Список действий:"))
+            input_choice = int(input("\nСписок действий:"))
             match input_choice:
                 case 1:
                     self.add_task()
@@ -28,7 +28,8 @@ class Start_todo_list:
                     self.delete_task(id)
                     break
                 case 3:
-                    self.update_status_task()
+                    id = int(input("Какую задачу вы хотите обновить?(id): "))
+                    self.update_status_task(id)
                     break
                 case _:
                     print("Такого нету")
@@ -39,8 +40,21 @@ class Start_todo_list:
         update_file(tasks)
         print("Успешно удалено")
 
-    def update_status_task(self):
-        print("update status task")
+    def update_status_task(self, id):
+        status = bool(int(input(f"Какой вы хотите статус? (1=True, 0=False): ")))
+        found  = False
+
+        for task in self.tasks:
+            if task["id"] == id:
+                task["status"] = status
+                found = True
+                break
+        if not found:
+            print("Такого ID нету")
+        else:
+            update_file(self.tasks)
+            print("Статус обновлен")
+
 
     def add_task(self):
         print("--- Добавление новой задачи --- \n")
